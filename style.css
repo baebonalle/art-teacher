@@ -9,10 +9,18 @@ body {
 
 ul {
 	background-color: #ffdbe0;
-	padding: 2%;
+	padding: 1%;
 }
 
 li {
 	display: inline;
 	color: "black";
+}
+
+h1 {
+	padding: 1%;
+}
+
+p {
+	padding: 1%
 }
