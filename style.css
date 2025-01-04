@@ -4,4 +4,10 @@ body {
 
 ul {
 	background-color: #fff8f9;
+	padding: 2%;
+}
+
+li {
+	display: inline;
+	color: "black";
 }
