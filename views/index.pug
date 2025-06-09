@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    title B.A.I. BOT
+    link(rel="stylesheet" href="/style.css")
+    link(href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet")
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Righteous" rel="stylesheet")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=star")
+
+  body
+    nav
+      ul
+        li: a(href="#home") Home
+        li: a(href="#about") Try It!
+        li: a(href="#try-it") About
+    h1 𖦹 B.A.I. BOT 𖦹
+     
+    main
+      h2 Meet your personal AI art teacher.
+      h3 Describe your artwork. Things you can include:
+      li What emotions the artwork should  evoke
+      li What medium you used to make the work
+      li Questions you would like to be  answered
+      input(type="text" id="questionInput" placeholder="Enter your description")
+      h3 Choose the element of your art that would you like feedback on.
+      select(id="dropDown")
+        option(value="color") Color
+        option(value="composition") Composition
+        option(value="value") Value
+      script(src="script.js")
+      h3 Upload an image of your artwork.
+      #dropBox
+        p Drag and drop an image here or click to select a file.
+      input(type="file" id="imageInput" style="display: none;")
+      
+      button#analyzeButton Analyze Image
+      footer
+        p#answer
+
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script(type="module", src="script.js")
