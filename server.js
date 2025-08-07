@@ -22,7 +22,7 @@ app.post('/color_theory', (req, res) => {
     return res.status(400).json({ error: 'No image data provided' });
   }
 
-  const pythonProcess = spawn('python', ['color_theory.py']);
+  const pythonProcess = spawn('python', ['script.py']);
   let outputData = '';
 
   pythonProcess.stdin.write(image);
@@ -78,5 +78,6 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
 
 
