@@ -1,4 +1,3 @@
-import cv2
 import sys
 import numpy as np
 import base64
@@ -22,4 +21,5 @@ def colorPalette(base64Image):
 
 if __name__ == '__main__':
     base64Image = sys.stdin.read().strip()
+
     colorPalette(base64Image)
