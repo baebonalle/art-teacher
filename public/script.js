@@ -74,7 +74,7 @@ analyzeButton.addEventListener('click', async () => {
 
       const API_URL = "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-base";
       const headers = {
-        Authorization: 'Bearer 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',
+        Authorization: 'Bearer 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',
       };
 
       const hfResponse = await axios.post(API_URL, payload, { headers });
@@ -92,5 +92,6 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
 
 
