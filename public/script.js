@@ -60,7 +60,7 @@ analyzeButton.addEventListener('click', async () => {
     const base64Image = reader.result.split(",")[1];
 
     try {
-      const colorResponse = await axios.post('http://localhost:7000/color_theory', {
+      const colorResponse = await axios.post('http://thebaibot.com/color_theory', {
         image: base64Image,
       });
       console.log('Color Analysis:', colorResponse.data);
@@ -80,7 +80,7 @@ analyzeButton.addEventListener('click', async () => {
       const hfResponse = await axios.post(API_URL, payload, { headers });
       console.log('Hugging Face Response:', hfResponse.data);
 
-      const finalResponse = await axios.post('http://localhost:7000/mistralapi', {
+      const finalResponse = await axios.post('http://thebaibot.com/mistralapi', {
         input: `Please analyze the color palette of my drawing. Here is my color palette in BGR format: ${JSON.stringify(colorResponse.data)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 150 words.`
       });      
       
@@ -92,3 +92,4 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
