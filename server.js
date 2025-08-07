@@ -1,21 +1,3 @@
-// const express = require('express');
-
-// const app = express();
-
-// app.get('/', (req, res) => {
-
-// res.send('Hello from Node!');
-
-// });
-
-// const PORT = process.env.PORT || 3000;
-
-// app.listen(PORT, () => {
-
-// console.log("Listening on ${PORT}");
-
-// })
-
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -95,3 +77,4 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
