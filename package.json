@@ -11,7 +11,8 @@
   "dependencies": {
     "express": "^4.21.2",
     "pug": "^2.0.4",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "node-fetch": "^2.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
