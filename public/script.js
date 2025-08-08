@@ -3,6 +3,7 @@ const dropDown = document.getElementById('dropDown');
 const dropBox = document.getElementById('dropBox');
 const imageInput = document.getElementById('imageInput');
 const answerParagraph = document.getElementById('answer');
+const apiKey = process.env.hugging_face_api_key;
 
 document.addEventListener('DOMContentLoaded', () => {
   const dropDown = document.getElementById('analyzeButton');
@@ -74,7 +75,7 @@ analyzeButton.addEventListener('click', async () => {
 
       const API_URL = "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-base";
       const headers = {
-        Authorization: 'Bearer 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',
+        Authorization: 'Bearer apiKey',
       };
 
       const hfResponse = await axios.post(API_URL, payload, { headers });
@@ -92,6 +93,7 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
 
 
 
