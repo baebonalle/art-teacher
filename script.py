@@ -8,9 +8,10 @@ from PIL import Image
 def colorPalette(base64Image):
     image_data = base64.b64decode(base64Image)
     image = Image.open(BytesIO(image_data))
-    image = np.array(image)
-      
-    pixels = image.reshape(-1, 3)
+    image = image.convert('RGB')
+    image_np = np.array(image)
+
+    pixels = image_np.reshape(-1, 3)
     kmeans = KMeans(n_clusters=10)
     kmeans.fit(pixels)
    
@@ -23,3 +24,4 @@ if __name__ == '__main__':
     base64Image = sys.stdin.read().strip()
 
     colorPalette(base64Image)
+
