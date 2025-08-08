@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const { spawn } = require('child_process');
 const app = express();
+const fetch = require('node-fetch'); 
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cors());
@@ -45,8 +46,40 @@ app.post('/color_theory', (req, res) => {
   });
 });
 
-app.post('/mistralapi', (req, res) => {
-  const { input } = req.body;
+app.post('/huggingface', async (req, res) => {
+  const { image, question } = req.body;
+
+  if (!image || !question) {
+    return res.status(400).json({ error: 'Missing image or question' });
+  }
+
+  try {
+    const payload = {
+      inputs: {
+        image,
+        question,
+      },
+    };
+
+    const response = await fetch(
+      'https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-base',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.hugging_face_api_key}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    console.error('Hugging Face API error:', err);
+    res.status(500).json({ error: 'Failed to call Hugging Face API' });
+  }
+});
 
   if (!input) {
     return res.status(400).json({ error: 'No input provided' });
@@ -78,6 +111,7 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
 
 
 
