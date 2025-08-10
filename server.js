@@ -62,7 +62,7 @@ app.post('/huggingface', async (req, res) => {
     };
 
     const response = await fetch(
-      'https://huggingface.co/Salesforce/blip-image-captioning-large',
+      'https://api-ninjas.com/api/objectdetection',
       {
         method: 'POST',
         headers: {
@@ -114,6 +114,7 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
 
 
 
