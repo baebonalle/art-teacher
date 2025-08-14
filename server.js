@@ -49,34 +49,25 @@ app.post('/color_theory', (req, res) => {
 app.post('/huggingface', async (req, res) => {
   const { image } = req.body;
 
-  if (!image || !question) {
-    return res.status(400).json({ error: 'Missing image or question' });
+  if (!image) {
+    return res.status(400).json({ error: 'Missing image' });
   }
 
   try {
-    let options = {
+    const response = await fetch('https://api.api-ninjas.com/v1/objectdetection', {
       method: 'POST',
       headers: {
-          'X-Api-Key': process.env.hugging_face_api_key,
-          'Content-Type': 'application/json',
-        },
-      body: JSON.stringify({ image }),
-    }
-    let url = 'https://api.api-ninjas.com/v1/objectdetection'
-    const response = await fetch(url,options)
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-        })
-        .catch(err => {
-            console.log(`error ${err}`)
-        }); 
+        'X-Api-Key': process.env.hugging_face_api_key,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image })
+    });
 
     const data = await response.json();
     res.json(data);
   } catch (err) {
-    console.error('Hugging Face API error:', err);
-    res.status(500).json({ error: 'Failed to call Hugging Face API' });
+    console.error('Object Detection API error:', err);
+    res.status(500).json({ error: 'Failed to call object detection API' });
   }
 });
 
@@ -113,6 +104,7 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
 
 
 
