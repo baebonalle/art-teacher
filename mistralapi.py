@@ -1,5 +1,5 @@
 from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
+from mistralai.models import ChatMessage
 import sys
 import os
 
@@ -20,3 +20,4 @@ def mistralapi(message):
 if __name__ == '__main__':
     finalInput = sys.stdin.read().strip()
     mistralapi(finalInput)
+
