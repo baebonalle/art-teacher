@@ -54,24 +54,22 @@ app.post('/huggingface', async (req, res) => {
   }
 
   try {
-    const payload = {
-      inputs: {
-        image,
-        question,
-      },
-    };
-
-    const response = await fetch(
-      'https://api.api-ninjas.com/v1/objectdetection',
-      {
-        method: 'POST',
-        headers: {
+    let options = {
+      method: 'GET',
+      headers: {
           'X-Api-Key': process.env.hugging_face_api_key,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
-      }
-    );
+    }
+    let url = 'https://api.api-ninjas.com/v1/objectdetection'
+    const response = await fetch(url,options)
+        .then(res => res.json()) // parse response as JSON
+        .then(data => {
+          console.log(data)
+        })
+        .catch(err => {
+            console.log(`error ${err}`)
+        }); 
 
     const data = await response.json();
     res.json(data);
@@ -114,6 +112,7 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
 
 
 
