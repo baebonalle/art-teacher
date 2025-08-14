@@ -55,7 +55,7 @@ app.post('/huggingface', async (req, res) => {
 
   try {
     let options = {
-      method: 'GET',
+      method: 'POST',
       headers: {
           'X-Api-Key': process.env.hugging_face_api_key,
           'Content-Type': 'application/json',
@@ -112,6 +112,7 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
 
 
 
