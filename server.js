@@ -47,7 +47,7 @@ app.post('/color_theory', (req, res) => {
 });
 
 app.post('/huggingface', async (req, res) => {
-  const { image, question } = req.body;
+  const { image } = req.body;
 
   if (!image || !question) {
     return res.status(400).json({ error: 'Missing image or question' });
@@ -113,6 +113,7 @@ app.post('/mistralapi', (req, res) => {
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
 
 
 
