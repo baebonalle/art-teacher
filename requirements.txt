@@ -4,4 +4,4 @@ opencv-python
 scikit-learn
 numpy
 pillow
-mistralai
+mistralai==0.4.2
