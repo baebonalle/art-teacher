@@ -18,17 +18,12 @@ html
     h1 𖦹 B.A.I. BOT 𖦹
      
     main
-      h2 Meet your personal AI art teacher.
+      h2 Hi art student! This is a tool that analyzes the color theory in your artwork, and uses AI to give you advice. Try it out!
       h3 Describe your artwork. Things you can include:
       li What emotions the artwork should  evoke
       li What medium you used to make the work
       li Questions you would like to be  answered
       input(type="text" id="questionInput" placeholder="Enter your description")
-      h3 Choose the element of your art that would you like feedback on.
-      select(id="dropDown")
-        option(value="color") Color
-        option(value="composition") Composition
-        option(value="value") Value
       script(src="script.js")
       h3 Upload an image of your artwork.
       #dropBox
@@ -41,3 +36,4 @@ html
 
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     script(type="module", src="script.js")
+
