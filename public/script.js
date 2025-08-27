@@ -1,3 +1,37 @@
+const analyzeButton = document.getElementById('analyzeButton');
+const dropBox = document.getElementById('dropBox');
+const imageInput = document.getElementById('imageInput');
+const answerParagraph = document.getElementById('answer');
+
+dropBox.addEventListener('drop', (event) => {
+  event.preventDefault();
+  dropBox.style.backgroundColor = '#f5f5f5';
+
+  const files = event.dataTransfer.files;
+  if (files.length > 0) {
+    handleImage(files[0]);
+  }
+});
+
+dropBox.addEventListener('click', () => {
+  imageInput.click();
+});
+
+imageInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    handleImage(file);
+  }
+});
+
+function handleImage(file) {
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    answerParagraph.textContent = `Image uploaded: ${file.name}`;
+  };
+  reader.readAsDataURL(file);
+}
+
 analyzeButton.addEventListener('click', async () => {
   const imageInputFile = imageInput.files[0];
   const questionInput = document.getElementById('questionInput').value;
@@ -9,26 +43,32 @@ analyzeButton.addEventListener('click', async () => {
 
   const reader = new FileReader();
   reader.readAsDataURL(imageInputFile);
+
   reader.onload = async () => {
     const base64Image = reader.result.split(",")[1];
 
     try {
-      const colorResponse = await axios.post('https://thebaibot.com/color_theory', { image: base64Image });
-      const hfResponse = await axios.post('https://thebaibot.com/huggingface', { image: base64Image, question: questionInput });
+      // Step 1: Get colors
+      const colorResponse = await axios.post('https://thebaibot.com/color_theory', {
+        image: base64Image,
+      });
+      console.log('Color Analysis:', colorResponse.data);
 
-      let colorString = colorResponse.data.result;
-      let colorLines = colorString.trim().split('\n');
-      let colors = colorLines.map(line => line.trim().replace(/\[|\]/g,'').split(/\s+/).map(Number));
+      const hfResponse = await axios.post('https://thebaibot.com/huggingface', {
+        image: base64Image,
+        question: questionInput
+      });
+      console.log('Hugging Face Response:', hfResponse.data);
+
+      const colors = colorResponse.data;
 
       const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `Please tell me which color palette is used in my drawing: complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colors)}.`
-      });
+        input: `Please tell me which color palette is used in my drawing: ex, complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colors)}.`
+      }); 
 
       const analysisResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `Please tell me which color palette is used in my drawing. Here are the top five colors I used in RGB format: ${JSON.stringify(colors)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
-      });
-
-      answerParagraph.innerHTML = '';
+        input: `Here are the top five colors I used in RGB format: ${JSON.stringify(colors)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
+      });      
 
       colors.forEach(rgb => {
         const div = document.createElement("div");
