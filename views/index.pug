@@ -24,12 +24,6 @@ html
       li What medium you used to make the work
       li Questions you would like to be  answered
       input(type="text" id="questionInput" placeholder="Enter your description")
-      h3 Choose the element of your art that would you like feedback on.
-      select(id="dropDown")
-        option(value="color") Color
-        option(value="composition") Composition
-        option(value="value") Value
-      script(src="script.js")
       h3 Upload an image of your artwork.
       #dropBox
         p Drag and drop an image here or click to select a file.
@@ -39,5 +33,7 @@ html
       footer
         p#answer
 
+
     script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     script(type="module", src="script.js")
+
