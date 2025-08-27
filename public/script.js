@@ -72,10 +72,22 @@ analyzeButton.addEventListener('click', async () => {
 
       console.log('Hugging Face Response:', hfResponse.data);
 
-      const finalResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `Please tell me which color palette is used in my drawing. Here is my color palette in RGB format: ${JSON.stringify(colorResponse.data)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
-      });      
+      const colors = colorResponse.data
       
+      const finalResponse = await axios.post('https://thebaibot.com/mistralapi', {
+        input: `Please tell me which color palette is used in my drawing. Here is my color palette in RGB format: ${JSON.stringify(colors)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
+      });      
+
+      colors.forEach(rgb => {
+        const div = document.createElement("div");
+        div.className = "color-square";
+        div.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+        div.style.width = "50px";
+        div.style.height = "50px";
+        div.style.display = "inline-block";
+        div.style.margin = "2px";
+        answerParagraph.appendChild(div);
+        
       console.log('Analysis:', finalResponse.data.result);
       answerElement.innerHTML = `${finalResponse.data.result}<br>
     `;    } catch (error) {
@@ -84,4 +96,5 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
 
