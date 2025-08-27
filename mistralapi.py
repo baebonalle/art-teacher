@@ -6,7 +6,7 @@ import os
 def mistralapi(message):
     client = MistralClient(api_key="L9hMCFF2pCsgW7jyffojIN4NMmIaol5P")
     messages = [
-        DeltaMessage(role='user', content=message)
+        ChatMessage(role='user', content=message)
     ]
 
     chat_response = client.chat(
@@ -20,6 +20,7 @@ def mistralapi(message):
 if __name__ == '__main__':
     finalInput = sys.stdin.read().strip()
     mistralapi(finalInput)
+
 
 
 
