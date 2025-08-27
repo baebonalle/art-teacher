@@ -12,7 +12,7 @@ def colorPalette(base64Image):
     image_np = np.array(image)
 
     pixels = image_np.reshape(-1, 3)
-    kmeans = KMeans(n_clusters=10)
+    kmeans = KMeans(n_clusters=5)
     kmeans.fit(pixels)
    
     dominant_colors = kmeans.cluster_centers_
@@ -24,4 +24,5 @@ if __name__ == '__main__':
     base64Image = sys.stdin.read().strip()
 
     colorPalette(base64Image)
+
 
