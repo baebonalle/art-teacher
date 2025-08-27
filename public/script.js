@@ -73,7 +73,7 @@ analyzeButton.addEventListener('click', async () => {
       console.log('Hugging Face Response:', hfResponse.data);
 
       const finalResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `Please analyze the color palette of my drawing. Here is my color palette in BGR format: ${JSON.stringify(colorResponse.data)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 150 words.`
+        input: `Please tell me which color palette is used in my drawing. Here is my color palette in RGB format: ${JSON.stringify(colorResponse.data)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
       });      
       
       console.log('Analysis:', finalResponse.data.result);
@@ -84,3 +84,4 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
