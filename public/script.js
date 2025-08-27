@@ -73,9 +73,13 @@ analyzeButton.addEventListener('click', async () => {
       console.log('Hugging Face Response:', hfResponse.data);
 
       const colors = colorResponse.data
+
+      const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
+        input: `Please tell me which color palette is used in my drawing: ex, complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colors)}.`
+      }); 
       
       const finalResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `Please tell me which color palette is used in my drawing. Here is my color palette in RGB format: ${JSON.stringify(colors)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
+        input: `Please tell me which color palette is used in my drawing. Here are the top five colors I used in RGB format: ${JSON.stringify(colors)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
       });      
 
       colors.forEach(rgb => {
@@ -94,7 +98,13 @@ analyzeButton.addEventListener('click', async () => {
       console.error('Error:', error.response?.data || error.message);
       answerElement.textContent = 'Error: ' + (error.response?.data?.error || error.message);
     }
+      paletteElement.innerHTML = `${paletteResponse.data.result}<br>
+    `;    } catch (error) {
+      console.error('Error:', error.response?.data || error.message);
+      paletteElement.textContent = 'Error: ' + (error.response?.data?.error || error.message);
+    }
   };
 });
+
 
 
