@@ -67,6 +67,7 @@ analyzeButton.addEventListener('click', async () => {
           .map(row =>
             row.trim().split(/\s+/).map(Number)
           );
+      console.log(colors);
 
       const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
         input: `Please tell me which color palette is used in my drawing: ex, complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colors)}.`
@@ -96,4 +97,5 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
 
