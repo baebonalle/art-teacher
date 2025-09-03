@@ -48,7 +48,6 @@ analyzeButton.addEventListener('click', async () => {
     const base64Image = reader.result.split(",")[1];
 
     try {
-      // Step 1: Get colors
       const colorResponse = await axios.post('https://thebaibot.com/color_theory', {
         image: base64Image,
       });
@@ -61,6 +60,13 @@ analyzeButton.addEventListener('click', async () => {
       console.log('Hugging Face Response:', hfResponse.data);
 
       const colors = colorResponse.data;
+          .trim()
+          .replace(/^\[\[/, '')   
+          .replace(/\]\]$/, '')   
+          .split(/\]\s*\[/)        
+          .map(row =>
+            row.trim().split(/\s+/).map(Number)
+          );
 
       const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
         input: `Please tell me which color palette is used in my drawing: ex, complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colors)}.`
@@ -90,3 +96,4 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
