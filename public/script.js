@@ -59,7 +59,7 @@ analyzeButton.addEventListener('click', async () => {
       });
       console.log('Hugging Face Response:', hfResponse.data);
 
-      const colors = colorResponse.data;
+      const colors = colorResponse.data
           .trim()
           .replace(/^\[\[/, '')   
           .replace(/\]\]$/, '')   
@@ -97,5 +97,6 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
 
 
