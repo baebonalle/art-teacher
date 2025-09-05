@@ -90,4 +90,3 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
-
