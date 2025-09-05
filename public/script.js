@@ -59,9 +59,19 @@ analyzeButton.addEventListener('click', async () => {
       });
       console.log('Hugging Face Response:', hfResponse.data);
 
-      console.log(colorResponse.data);
-      console.log("typeof:", typeof colorResponse.data);
-      console.log("isArray:", Array.isArray(colorResponse.data));
+      const rawColors = colorResponse.data.result;
+      console.log("Raw colors:", rawColors);
+
+      const colors = String(rawColors)
+        .trim()
+        .replace(/^\[\[/, "")
+        .replace(/\]\]$/, "")
+        .split(/\]\s*\[/)
+        .map(row =>
+          row.trim().split(/\s+/).map(Number)
+        );
+      
+      console.log("Parsed colors:", colors);
 
       const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
         input: `Please tell me which color palette is used in my drawing: ex, complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colorResponse.data)}.`
@@ -80,3 +90,4 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
