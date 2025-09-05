@@ -70,7 +70,8 @@ analyzeButton.addEventListener('click', async () => {
         .map(row =>
           row.trim().split(/\s+/).map(Number)
         );
-      
+
+      console.log("meow");
       console.log("Parsed colors:", colors);
 
       const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
@@ -90,3 +91,4 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
