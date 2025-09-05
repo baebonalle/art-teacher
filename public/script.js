@@ -80,7 +80,3 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
-
-
-
-
