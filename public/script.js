@@ -59,34 +59,17 @@ analyzeButton.addEventListener('click', async () => {
       });
       console.log('Hugging Face Response:', hfResponse.data);
 
-      const colors = colorResponse.data
-          .trim()
-          .replace(/^\[\[/, '')   
-          .replace(/\]\]$/, '')   
-          .split(/\]\s*\[/)        
-          .map(row =>
-            row.trim().split(/\s+/).map(Number)
-          );
-      console.log(colors);
+      console.log(colorResponse.data);
+      console.log("typeof:", typeof colorResponse.data);
+      console.log("isArray:", Array.isArray(colorResponse.data));
 
       const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `Please tell me which color palette is used in my drawing: ex, complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colors)}.`
+        input: `Please tell me which color palette is used in my drawing: ex, complementary, analogous, triadic, etc. Here is my color palette in RGB format: ${JSON.stringify(colorResponse.data)}.`
       }); 
 
       const analysisResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `Here are the top five colors I used in RGB format: ${JSON.stringify(colors)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
+        input: `Here are the top five colors I used in RGB format: ${JSON.stringify(colorResponse.data)}. Here is a brief description of it: ${JSON.stringify(hfResponse.data)}. Here is some added information about it: ${questionInput}. Provide suggestions on how I can improve. Do NOT mention the specific RGB values, or quote the text I gave you. Instead, pretend like you are seeing the painting in real life, and critiquing it as my art teacher. Keep it under 100 words.`
       });      
-
-      colors.forEach(rgb => {
-        const div = document.createElement("div");
-        div.className = "color-square";
-        div.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
-        div.style.width = "50px";
-        div.style.height = "50px";
-        div.style.display = "inline-block";
-        div.style.margin = "2px";
-        answerParagraph.appendChild(div);
-      });
 
       answerParagraph.innerHTML += `<br><b>Color Palette:</b> ${paletteResponse.data.result}<br>`;
       answerParagraph.innerHTML += `<b>Analysis:</b> ${analysisResponse.data.result}`;
@@ -97,6 +80,7 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
 
 
 
