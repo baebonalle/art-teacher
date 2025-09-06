@@ -71,11 +71,21 @@ analyzeButton.addEventListener('click', async () => {
           row.trim().split(/\s+/).map(Number)
         );
 
-      console.log("meow");
       console.log("Parsed colors:", colors);
+      
+      colors.forEach(rgb => {
+        const div = document.createElement("div");
+        div.className = "color-square";
+        div.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+        div.style.width = "50px";
+        div.style.height = "50px";
+        div.style.display = "inline-block";
+        div.style.margin = "2px";
+        answerParagraph.appendChild(div);
+      });
 
       const paletteResponse = await axios.post('https://thebaibot.com/mistralapi', {
-        input: `In one word, what color palette is used in my drawing: monochromatic, complementary, analogous, triadic, tetradic, neutral, or split-complementary. Here is my color palette in RGB format: ${JSON.stringify(colorResponse.data)}.`
+        input: `In one word, what color palette is used in my drawing: monochromatic, complementary, analogous, triadic, tetradic, neutral, or split-complementary. Here is my color palette in RGB format: ${JSON.stringify(colorResponse.data)}. Do not provide any explanation, just one word for the name of the color palette.`
       }); 
 
       const analysisResponse = await axios.post('https://thebaibot.com/mistralapi', {
@@ -91,5 +101,6 @@ analyzeButton.addEventListener('click', async () => {
     }
   };
 });
+
 
 
